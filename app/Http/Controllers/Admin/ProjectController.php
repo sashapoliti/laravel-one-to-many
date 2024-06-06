@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 
+use Illuminate\Support\Facades\Storage;
+
 class ProjectController extends Controller
 {
     /**
@@ -36,8 +38,11 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        $form_data = $request->all();
+        $form_data = $request->validated();        
         $form_data['slug'] = Project::generateSlug($form_data['title']);
+        if ($request->hasFile('image')) {
+            $form_data['image'] = Storage::put('project_images', $request->image);
+        }
         $newProject = Project::create($form_data);
         return redirect()->route('admin.projects.index')->with('success', 'Project created successfully');
     }
