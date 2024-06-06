@@ -41,7 +41,7 @@ class ProjectController extends Controller
         $form_data = $request->validated();        
         $form_data['slug'] = Project::generateSlug($form_data['title']);
         if ($request->hasFile('image')) {
-            $form_data['image'] = Storage::put('project_images', $request->image);
+            $form_data['image'] = Storage::putFileAs('project_images', $request->image, $request->image->getClientOriginalName());
         }
         $newProject = Project::create($form_data);
         return redirect()->route('admin.projects.index')->with('success', 'Project created successfully');
@@ -76,7 +76,7 @@ class ProjectController extends Controller
         }
         if ($request->hasFile('image')) {
             if ($project->image) Storage::delete($project->image); /* if there is an image, delete it */
-            $form_data['image'] = Storage::put('project_images', $request->image);
+            $form_data['image'] = Storage::putFileAs('project_images', $request->image, $request->image->getClientOriginalName());
         }
         $project->update($form_data);
         return redirect()->route('admin.projects.index')->with('success', 'Project updated successfully');

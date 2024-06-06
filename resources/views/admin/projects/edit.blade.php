@@ -17,7 +17,7 @@
             </div>
             <div class="mb-3 d-flex">
                 <div class="media me-4">
-                    <img class="shadow" id="uploadPreview" width="150" src="{{ asset('storage/' . $project->image) }}" alt="Preview image {{ $project->title }}">
+                    <img class="shadow" id="uploadPreview" width="150" src="{{ $project->image ? asset('storage/' . $project->image) : 'https://via.placeholder.com/300x200' }}" alt="Preview image {{ $project->title }}">
                 </div>
                 <div>
                     <label for="image" class="form-label">Image</label>
