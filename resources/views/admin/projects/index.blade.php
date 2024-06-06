@@ -3,7 +3,7 @@
 
 @section('content')
     <section class="mt-4 p-3">
-        <!-- Messaggio di successo -->
+        <!-- Success message create/destroy -->
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -50,4 +50,5 @@
             </tbody>
         </table>
     </section>
+@include('partials.modal-delete')
 @endsection
