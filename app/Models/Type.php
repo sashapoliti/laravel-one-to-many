@@ -24,7 +24,7 @@ class Type extends Model
     {
         $slug = Str::slug($title, '-');
         $c = 1;
-        while (Project::where('slug', $slug)->first()) {
+        while (Type::where('slug', $slug)->first()) {
             $slug = Str::of($title)->slug('-') . '-' . $c;
             $c++;
         }

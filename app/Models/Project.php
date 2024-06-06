@@ -18,6 +18,11 @@ class Project extends Model
         'slug',
     ];
 
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
+
     public static function generateSlug($title)
     {
         $slug = Str::slug($title, '-');
