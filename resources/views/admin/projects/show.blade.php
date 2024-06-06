@@ -7,5 +7,6 @@
 
     <p>{{$project->content}}</p>
     <img src="{{$project->image}}" alt="{{$project->title}}">
+    <p>{{$project->type ? $project->type->name : 'No type'}}</p>
 </section>
 @endsection
