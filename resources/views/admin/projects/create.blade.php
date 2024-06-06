@@ -14,14 +14,18 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="mb-3">
-                <img id="uploadPreview" width="100" src="https://via.placeholder.com/300x200">
-                <label for="image" class="form-label">Image</label>
-                <input type="file" accept="image/*" class="form-control @error('image') is-invalid @enderror" id="uploadImage"
-                    name="image" value="{{ old('image') }}">
-                @error('image')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+            <div class="mb-3 d-flex">
+                <div class="media me-4">
+                    <img id="uploadPreview" class="shadow" width="150" src="https://via.placeholder.com/300x200" alt="Preview image">
+                </div>
+                <div>
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" accept="image/*" class="form-control @error('image') is-invalid @enderror"
+                        id="uploadImage" name="image" value="{{ old('image') }}">
+                    @error('image')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
@@ -37,7 +41,8 @@
                 <select class="form-select @error('type_id') is-invalid @enderror" id="type_id" name="type_id">
                     <option value="">Select a type</option>
                     @foreach ($types as $type)
-                        <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>{{ $type->name }}</option>
+                        <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>
+                            {{ $type->name }}</option>
                     @endforeach
                 </select>
                 @error('type_id')

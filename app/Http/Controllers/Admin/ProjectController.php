@@ -74,6 +74,10 @@ class ProjectController extends Controller
         if ($project->title !== $form_data['title']) {
             $form_data['slug'] = Project::generateSlug($form_data['title']);
         }
+        if ($request->hasFile('image')) {
+            if ($project->image) Storage::delete($project->image); /* if there is an image, delete it */
+            $form_data['image'] = Storage::put('project_images', $request->image);
+        }
         $project->update($form_data);
         return redirect()->route('admin.projects.index')->with('success', 'Project updated successfully');
     }
@@ -83,6 +87,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if ($project->image) Storage::delete($project->image); /* if there is an image, delete it */
         $project->delete();
         return redirect()->route('admin.projects.index')->with('success', 'Project deleted successfully');
     }

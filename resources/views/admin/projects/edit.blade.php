@@ -15,13 +15,18 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="mb-3">
-                <label for="image" class="form-label">Image</label>
-                <input type="file" accept="image/*" class="form-control @error('image') is-invalid @enderror" id="image"
-                    name="image" value="@if(old('image')) {{ old('image') }} @else {{ $project->image }} @endif">
-                @error('image')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+            <div class="mb-3 d-flex">
+                <div class="media me-4">
+                    <img class="shadow" id="uploadPreview" width="150" src="{{ asset('storage/' . $project->image) }}" alt="Preview image {{ $project->title }}">
+                </div>
+                <div>
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" accept="image/*" class="form-control @error('image') is-invalid @enderror" id="uploadImage"
+                        name="image" value="@if(old('image')) {{ old('image') }} @else {{ $project->image }} @endif">
+                    @error('image')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
