@@ -40,7 +40,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="delete-button border-0 bg-transparent"
-                                    data-item-title="{{ $type->title }}">
+                                    data-item-title="{{ $type->name }}">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>
@@ -51,3 +51,4 @@
         </table>
     </section>
 @endsection
+@include('partials.modal-delete')

@@ -23,7 +23,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.types.create');
     }
 
     /**
@@ -31,7 +31,12 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $form_data = $request->validate([           
+            'name' => ['required', 'string', 'min:3', 'max:255'],
+        ]);
+        $form_data['slug'] = Type::generateSlug($form_data['name']);
+        $newType = Type::create($form_data);
+        return redirect()->route('admin.types.index')->with('success', 'Type created successfully');
     }
 
     /**
@@ -47,7 +52,7 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        //
+        return view('admin.types.edit', compact('type'));
     }
 
     /**
@@ -55,7 +60,14 @@ class TypeController extends Controller
      */
     public function update(Request $request, Type $type)
     {
-        //
+        $form_data = $request->validate([           
+            'name' => ['required', 'string', 'min:3', 'max:255'],
+        ]);
+        if ($type->name !== $form_data['name']) {
+            $form_data['slug'] = Type::generateSlug($form_data['name']);
+        }
+        $type->update($form_data);
+        return redirect()->route('admin.types.show', $type->slug);
     }
 
     /**
@@ -63,6 +75,7 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        //
+        $type->delete();
+        return redirect()->route('admin.types.index')->with('success', 'Type deleted successfully');
     }
 }
