@@ -15,8 +15,9 @@
                 @enderror
             </div>
             <div class="mb-3">
+                <img id="uploadPreview" width="100" src="https://via.placeholder.com/300x200">
                 <label for="image" class="form-label">Image</label>
-                <input type="file" accept="image/*" class="form-control @error('image') is-invalid @enderror" id="image"
+                <input type="file" accept="image/*" class="form-control @error('image') is-invalid @enderror" id="uploadImage"
                     name="image" value="{{ old('image') }}">
                 @error('image')
                     <div class="alert alert-danger">{{ $message }}</div>

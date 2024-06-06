@@ -7,7 +7,6 @@ import.meta.glob([
 ])
 
 const deleteSubmitButtons = document.querySelectorAll(".delete-button");
-
 deleteSubmitButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
         event.preventDefault();
@@ -30,3 +29,16 @@ deleteSubmitButtons.forEach((button) => {
         });
     });
 });
+
+const image = document.getElementById("uploadImage");
+if (image) {
+    image.addEventListener("change", () => {
+        const preview = document.getElementById("uploadPreview");
+        const oFReader = new FileReader(); /* reading file */
+
+        oFReader.readAsDataURL(image.files[0]); /* read as data url */
+        oFReader.onload = function (e) {
+            preview.src = e.target.result;
+        };
+    });
+}
